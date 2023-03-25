@@ -1,15 +1,22 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from Controlador import *
+
+controlador = controladorBD()
+
+def ejecutarInsert():
+    controlador.guardarUsuarios(varNombre.get(), varCorreo.get(), varContra.get())
 
 Ventana = Tk()
 Ventana.title("Usuarios")
-Ventana.geometry("800x600")
+Ventana.geometry("420x300")
 Ventana.resizable(0,0)
 Ventana.config(bg="lightblue")
 
 panel = ttk.Notebook(Ventana)
 panel.pack(fill="both", expand="yes")
+
 
 pestana1 = ttk.Frame(panel)
 pestana2 = ttk.Frame(panel)
@@ -34,5 +41,7 @@ txtCorreo = Entry(pestana1, textvariable=varCorreo, font=("Arial", 12), width=30
 varContra = tk.StringVar()
 lblContra = Label(pestana1, text="Contraseña", font=("Arial", 12), bg="white").place(x=10, y=150)
 txtContra = Entry(pestana1, textvariable=varContra, font=("Arial", 12), width=30).place(x=10, y=170)
+
+btnGuardar = Button(pestana1, text="Guardar", font=("Arial", 12), bg="white", command=ejecutarInsert).place(x=10, y=200)
 
 Ventana.mainloop()
