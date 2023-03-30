@@ -7,6 +7,12 @@ controlador = controladorBD()
 
 def ejecutarInsert():
     controlador.guardarUsuarios(varNombre.get(), varCorreo.get(), varContra.get())
+    
+def ejecutarSelect():
+    usuario = controlador.consultarUsuario(varIdentificador.get())
+    for usu in usuario:
+        cadena = str(usu[0]) + " " + str(usu[1]) + " " + str(usu[2]) + " " + str(usu[3])
+        print(cadena)
 
 Ventana = Tk()
 Ventana.title("Usuarios")
@@ -43,5 +49,19 @@ lblContra = Label(pestana1, text="Contraseña", font=("Arial", 12), bg="white").
 txtContra = Entry(pestana1, textvariable=varContra, font=("Arial", 12), width=30).place(x=10, y=170)
 
 btnGuardar = Button(pestana1, text="Guardar", font=("Arial", 12), bg="white", command=ejecutarInsert).place(x=10, y=200)
+
+#Pestaña 2 Buscar Usuarios
+
+titulo2 = Label(pestana2, text="Buscar Usuarios", font=("Arial", 20), bg="white").place(x=10, y=10)
+
+varIdentificador = tk.StringVar()
+lblIdentificador = Label(pestana2, text="Identificador", font=("Arial", 12), bg="white").place(x=10, y=50)
+txtIdentificador = Entry(pestana2, textvariable=varIdentificador, font=("Arial", 12), width=30).place(x=10, y=70)
+
+btnBuscar = Button(pestana2, text="Buscar", font=("Arial", 12), bg="white", command=ejecutarSelect).place(x=10, y=100)
+
+lblEncontrado = Label(pestana2, text="Encontrado", font=("Arial", 12), bg="white").place(x=10, y=130)
+txtEncontrado = Text(pestana2, font=("Arial", 12), width=40, height = 5).place(x=10, y=150)
+
 
 Ventana.mainloop()

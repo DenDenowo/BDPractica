@@ -38,3 +38,19 @@ class controladorBD:
         conHa = bcrypt.hashpw(conPlana, sal)
         print(conHa)
         return conHa
+    
+    def consultarUsuario(self, id):
+        conx= self.conexionBD()
+        print(id)
+        if(id == ""):
+            messagebox.showinfo("Cuidado", "ID vacío")
+        else:
+            try:
+                cursor = conx.cursor()
+                selectQry = "SELECT * FROM TBRegistrados WHERE ID ="+id
+                cursor.execute(selectQry)
+                rsUsuario = cursor.fetchall()
+                return rsUsuario
+                
+            except sqlite3.OperationalError:
+                messagebox.showinfo("Cuidado", "ID no encontrado")
