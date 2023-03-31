@@ -13,6 +13,8 @@ def ejecutarSelect():
     for usu in usuario:
         cadena = str(usu[0]) + " " + str(usu[1]) + " " + str(usu[2]) + " " + str(usu[3])
         print(cadena)
+        varEncontrado.set(cadena)
+        
 
 Ventana = Tk()
 Ventana.title("Usuarios")
@@ -60,8 +62,9 @@ txtIdentificador = Entry(pestana2, textvariable=varIdentificador, font=("Arial",
 
 btnBuscar = Button(pestana2, text="Buscar", font=("Arial", 12), bg="white", command=ejecutarSelect).place(x=10, y=100)
 
-lblEncontrado = Label(pestana2, text="Encontrado", font=("Arial", 12), bg="white").place(x=10, y=130)
-txtEncontrado = Text(pestana2, font=("Arial", 12), width=40, height = 5).place(x=10, y=150)
+varEncontrado = tk.StringVar()
+lblEncontrado = Label(pestana2, text="Encontrado", font=("Arial", 12), bg="white").place(x=10, y=130)    
+txtEncontrado = Entry(pestana2, width=50, textvariable= varEncontrado).place(x=10, y=150)
 
 
 Ventana.mainloop()
