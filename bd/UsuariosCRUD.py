@@ -24,6 +24,7 @@ def limpiarTreeview(tree):
         tree.delete(*x)
         
 def mostrarUsuarios():
+    limpiarTreeview(txtUsuarios)
     usuarios = controlador.consultaGeneral()
     for usu in usuarios:
         cadena = str(usu[0]) + " " + str(usu[1]) + " " + str(usu[2]) + " " + str(usu[3])
