@@ -54,3 +54,11 @@ class controladorBD:
                 
             except sqlite3.OperationalError:
                 messagebox.showinfo("Cuidado", "ID no encontrado")
+                
+    def consultaGeneral(self):
+        conx = self.conexionBD()
+        cursor = conx.cursor()
+        selectQry = "SELECT * FROM TBRegistrados"
+        cursor.execute(selectQry)
+        rsUsuarios = cursor.fetchall()
+        return rsUsuarios
