@@ -50,7 +50,10 @@ class controladorBD:
                 selectQry = "SELECT * FROM TBRegistrados WHERE ID ="+id
                 cursor.execute(selectQry)
                 rsUsuario = cursor.fetchall()
-                return rsUsuario
+                if rsUsuario == []:
+                    messagebox.showinfo("Cuidado", "ID no encontrado")
+                else:
+                    return rsUsuario
                 
             except sqlite3.OperationalError:
                 messagebox.showinfo("Cuidado", "ID no encontrado")
@@ -66,3 +69,38 @@ class controladorBD:
         
         except sqlite3.OperationalError:
             messagebox.showinfo("Cuidado", "No se encontraron registros")
+            
+    def actualizarUsuario(self, id, nom, corr, con):
+        if(id == "" or nom == "" or corr == "" or con == ""):
+            messagebox.showinfo("Cuidado", "Todos los campos son obligatorios")
+        else:
+            try:
+                if messagebox.askyesno("Actualizar", "¿Está seguro de actualizar el registro con el ID: "+id+"?"):
+                    conx = self.conexionBD()
+                    cursor = conx.cursor()
+                    conh = self.encriptarCon(con)
+                    datos = (nom, corr, conh, id)
+                    updateQry = "UPDATE TBRegistrados SET Nombre=?, Correo=?, Contra=? WHERE ID=?"
+                    cursor.execute(updateQry, datos)
+                    conx.commit()
+                    conx.close()
+                    messagebox.showinfo("Información", "Registro actualizado")
+                else:
+                    messagebox.showinfo("Información", "Operación cancelada")
+            except sqlite3.OperationalError:
+                messagebox.showinfo("Cuidado", "No se encontró el registro")
+        
+    def eliminarUsuario(self, id):
+        try:
+            if messagebox.askyesno("Eliminar", "¿Está seguro de eliminar el registro con el ID: "+id+"?"):
+                conx = self.conexionBD()
+                cursor = conx.cursor()
+                deleteQry = "DELETE FROM TBRegistrados WHERE ID="+id
+                cursor.execute(deleteQry)
+                conx.commit()
+                conx.close()
+                messagebox.showinfo("Información", "Registro eliminado")
+            else:
+                messagebox.showinfo("Información", "Operación cancelada")
+        except sqlite3.OperationalError:
+            messagebox.showinfo("Cuidado", "No se encontró el registro")
